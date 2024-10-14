@@ -1,6 +1,5 @@
 import React from "react";
 import { IoMdSearch } from "react-icons/io";
-import LineAnimation from "../../Animations/LineAnimate";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { GrLineChart } from "react-icons/gr";
 import { GoArrowSwitch } from "react-icons/go";
@@ -22,7 +21,7 @@ export const tools_data: tools[] = [
     description:
       "You can evaluate the EMI, SIP, SWP and other financial calculation from this tools.",
     icon: <FaDollarSign strokeWidth={10} />,
-    href: "/tools/financial-tools",
+    href: "/financial-tools",
     styles: "bg-primary/10 text-primary px-2 font-medium",
   },
   {
@@ -31,7 +30,7 @@ export const tools_data: tools[] = [
     description:
       "You can evaluate the EMI, SIP, SWP and other financial calculation from this tools.",
     icon: <GrLineChart />,
-    href: "/tools/stock-tools",
+    href: "/stock-tools",
     styles: "bg-accent/10 text-accent px-2 font-medium",
   },
   {
@@ -40,7 +39,7 @@ export const tools_data: tools[] = [
     description:
       "You can evaluate the EMI, SIP, SWP and other financial calculation from this tools.",
     icon: <GoArrowSwitch />,
-    href: "/tools/unit-converters",
+    href: "/unit-converters",
     styles: "bg-secondary/10 text-secondary px-2 font-medium",
   },
   {
@@ -49,7 +48,7 @@ export const tools_data: tools[] = [
     description:
       "You can evaluate the EMI, SIP, SWP and other financial calculation from this tools.",
     icon: <FaTools />,
-    href: "/tools/useful-tools",
+    href: "/useful-tools",
     styles: "bg-highlight/10 text-highlight px-2 font-medium",
   },
 ];
@@ -57,7 +56,6 @@ export const tools_data: tools[] = [
 export const HeroUI = () => {
   return (
     <>
-      {/* <LineAnimation /> */}
       <div className="flex items-center justify-center w-full h-auto flex-col p-6 mt-10 ">
         <h1 className="text-4xl lg:text-6xl font-bold text-black text-center mb-4">
           Efficiency at Your Fingertips

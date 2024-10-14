@@ -4,7 +4,6 @@ import React from "react";
 import ToolsCardUI from "../UI/ToolsCardUI";
 import { 
   FaFont, 
-  FaExchangeAlt, 
   FaMapMarkedAlt, 
   FaCalendarAlt, 
   FaBirthdayCake, 

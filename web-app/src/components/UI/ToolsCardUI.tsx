@@ -1,7 +1,5 @@
 import React from "react";
-import style from "@/components/UI/ToolCardUI.module.css";
 import Card from "./Card";
-
 import { IToolsCardContent } from "@/interfaces/IToolsContent";
 interface ToolsProps {
   tools_name: string;
@@ -16,8 +14,11 @@ const ToolsCardUI: React.FC<ToolsProps> = (props) => {
           <h2 className="text-4xl md:text-4xl font-extrabold tracking-tight relative inline-block">
             <span className="text-indigo-800 dark:text-indigo-600">
               {" "}
-              <a className="no-underline" href="https://neptools.com/nepali-tools">
-               {props.tools_name}
+              <a
+                className="no-underline"
+                href="https://neptools.com/nepali-tools"
+              >
+                {props.tools_name}
               </a>
             </span>
             <svg
