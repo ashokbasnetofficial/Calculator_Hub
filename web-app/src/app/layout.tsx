@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/UI/Navbar";
 import Footer from "@/components/Footer";
+import ResponsiveMain from "@/components/ResponsiveMain";
 const poppins = Poppins({
   weight: ["100", "300", "400", "500", "700", "900"],
   subsets: ["latin"],
@@ -23,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} bg-background`}>
         <Navbar />
-        <main>{children}</main>
+        <ResponsiveMain>{children}</ResponsiveMain>
         <Footer />
       </body>
     </html>
