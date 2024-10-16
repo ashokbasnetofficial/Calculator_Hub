@@ -1,9 +1,12 @@
 "use client";
+
+import NepaliToEnglishDateConverter from "@/components/forms/NepaliDateConverterForm";
+
 const UsefulCalculator = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   return (
     <>
-      <p>{id}</p>
+      <NepaliToEnglishDateConverter />
     </>
   );
 };

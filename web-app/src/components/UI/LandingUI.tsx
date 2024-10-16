@@ -5,6 +5,7 @@ import FinancialTools from "../FinancialTools/FinancialTools";
 import StockTools from "../StockTools/StockTools";
 import UnitConverterTools from "../Unit Converter/UnitConverterTools";
 import UsefulTools from "../UsefulTools/UseFulTools";
+import AppDownload from "./AppDownload";
 const LandingUI = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const LandingUI = () => {
         <StockTools />
         <UnitConverterTools />
         <UsefulTools />
+        <AppDownload/>
       </div>
     </>
   );

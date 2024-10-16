@@ -12,7 +12,7 @@ const data: IToolsCardContent[] = [
     title: "Share Buy Calculator",
     description: "Calculate the cost of buying shares.",
     icon: <FaHandHoldingDollar />,
-    href: "/investment-tools/share-buy-calculator",
+    href: "/stock-tools/share-buy-calculator",
     styles: "bg-blue-200 text-blue-600",
   },
   {
@@ -20,7 +20,7 @@ const data: IToolsCardContent[] = [
     title: "Share Sell Calculator",
     description: "Estimate your returns from selling shares.",
     icon: <FaMoneyCheckAlt />,
-    href: "/investment-tools/share-sell-calculator",
+    href: "/stock-tools/share-sell-calculator",
     styles: "bg-red-200 text-red-600",
   },
   {
@@ -28,7 +28,7 @@ const data: IToolsCardContent[] = [
     title: "Dividend Calculator",
     description: "Determine your dividend income.",
     icon: <FaChartLine />,
-    href: "/investment-tools/dividend-calculator",
+    href: "/stock-tools/dividend-calculator",
     styles: "bg-green-200 text-green-600",
   },
   {

@@ -27,7 +27,7 @@ const EMIForm: React.FC<{ onSubmit: (data: IEMI) => void }> = (props) => {
   return (
     <form className="text-black max-w-md" onSubmit={formSubmitHandler}>
       <div className="form-group mb-2">
-        <label htmlFor="loan_amount" className="block mb-2">
+        <label htmlFor="loan_amount" className="block mb-2 text-primary">
           Loan Amount
         </label>
         <input
@@ -39,7 +39,7 @@ const EMIForm: React.FC<{ onSubmit: (data: IEMI) => void }> = (props) => {
         />
       </div>
       <div className="form-group mb-2">
-        <label htmlFor="interest_rate" className="block mb-2">
+        <label htmlFor="interest_rate" className="block mb-2 text-primary">
           Loan Rate %
         </label>
         <input
@@ -51,7 +51,7 @@ const EMIForm: React.FC<{ onSubmit: (data: IEMI) => void }> = (props) => {
         />
       </div>
       <div className="form-group mb-2">
-        <label htmlFor="loan_tenure" className="block mb-2">
+        <label htmlFor="loan_tenure" className="block mb-2 text-primary">
           Loan Tenure(in Months)
         </label>
         <input

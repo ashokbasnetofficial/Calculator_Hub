@@ -1,7 +1,15 @@
 import { IToolsCardContent } from "@/interfaces/IToolsContent";
 import React from "react";
-import { FaHandHoldingUsd, FaPiggyBank, FaChartLine, FaCoins, FaPercentage } from "react-icons/fa"; // Different icons
+import {
+  FaHandHoldingUsd,
+  FaPiggyBank,
+  FaChartLine,
+  FaCoins,
+  FaPercentage,
+} from "react-icons/fa"; // Different icons
 import ToolsCardUI from "../UI/ToolsCardUI";
+import { FiDollarSign } from "react-icons/fi";
+import { FaFileInvoiceDollar } from "react-icons/fa";
 
 const data: IToolsCardContent[] = [
   {
@@ -43,6 +51,22 @@ const data: IToolsCardContent[] = [
     icon: <FaPercentage />, // Icon for ROI Calculator
     href: "/financial-tools/roi-calculator",
     styles: "bg-red-200 text-red-600", // Unique style for ROI Calculator
+  },
+  {
+    key: 6,
+    title: "InCome Tax Calculator",
+    description: "Calculate InCome Tax",
+    icon: <FaFileInvoiceDollar />, // Icon for ROI Calculator
+    href: "/financial-tools/income-tax-calculator",
+    styles: "bg-pink-200 text-pink-600", // Unique style for ROI Calculator
+  },
+  {
+    key: 7,
+    title: "RD Calculator",
+    description: "Calculate Recurring Deposit",
+    icon: <FiDollarSign />, // Icon for ROI Calculator
+    href: "/financial-tools/rd-calculator",
+    styles: "bg-cyan-200 text-cyan-600", // Unique style for ROI Calculator
   },
 ];
 

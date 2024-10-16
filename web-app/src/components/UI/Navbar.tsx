@@ -12,10 +12,7 @@ const Navbar = () => {
   return (
     <nav className="bg-primary border-primary dark:bg-primary z-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a
-          href="https://flowbite.com/"
-          className="flex items-center space-x-2 rtl:space-x-reverse"
-        >
+        <a href="/" className="flex items-center space-x-2 rtl:space-x-reverse">
           <Image src={Logo} alt="logo" className="w-12" priority />
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
             CalculatorHub
@@ -130,7 +127,7 @@ const Navbar = () => {
             <li>
               <a
                 href="#"
-                className="block uppercase py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                className="block uppercase py-2 px-3 text-white bg-accent rounded md:bg-transparent md:text-accent md:p-0 md:dark:text-accent"
                 aria-current="page"
               >
                 Home
