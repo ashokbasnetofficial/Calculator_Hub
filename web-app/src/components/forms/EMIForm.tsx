@@ -5,14 +5,13 @@ const initialState: IEMI = {
   interest_rate: 0,
   tenure: 0,
 };
-const EMIForm: React.FC<{ onSubmit: (data: IEMI) => void }> = (props) => {
+const EMIForm: React.FC = () => {
   const [formData, setFormData] = useState<IEMI>(initialState);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prevState: any) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [name]:
         name === "loan_amount" || name === "interest_rate" || name === "tenure"
@@ -23,6 +22,7 @@ const EMIForm: React.FC<{ onSubmit: (data: IEMI) => void }> = (props) => {
   const resetFormHandler = () => {};
   const formSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
+    console.log(formData);
   };
   return (
     <form className="text-black max-w-md" onSubmit={formSubmitHandler}>

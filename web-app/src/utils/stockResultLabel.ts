@@ -1,4 +1,11 @@
-export const stockresultLabels: any = {
+type StockCalculatorKeys = 
+  | "share-sell-calculator"
+  | "dividend-calculator"
+  | "share-buy-calculator";
+
+export type StockCalculatorLabels = string[];
+
+export const stockresultLabels: Record<StockCalculatorKeys, StockCalculatorLabels> = {
   "share-sell-calculator": [
     "Investor Type",
     "Total Amount",
@@ -11,16 +18,16 @@ export const stockresultLabels: any = {
   ],
   "dividend-calculator": [
     "Total Cash Amount",
-    "Cash Dividend Tax(5%)",
-    "Bonus Dividend Tax(5%)",
+    "Cash Dividend Tax (5%)",
+    "Bonus Dividend Tax (5%)",
     "Total Payable Tax",
-    "Receiveable Bonus",
+    "Receivable Bonus",
   ],
   "share-buy-calculator": [
     "Total Amount",
     "DP Charge",
     "SEBON Fee",
-    "Broker Commsion Fee",
+    "Broker Commission Fee",
     "Total Payable Amount",
     "Total Cost Per Share",
   ],

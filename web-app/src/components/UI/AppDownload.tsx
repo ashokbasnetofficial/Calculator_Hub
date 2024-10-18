@@ -1,15 +1,16 @@
 import React from "react";
-
+import Image from "next/image";
 const AppDownload = () => {
   return (
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="xl:p-24 gap-32 p-12 rounded-2xl bg-gradient-to-r from-primary to-primary/80 flex  justify-between flex-col-reverse lg:flex-row">
           <div className="w-48 lg:w-1/5 relative mt-8">
-            <img
+            <Image
               src="https://i.ibb.co/NKDn0DR/photo.png"
               alt="CTA tailwind section"
               className="xl:absolute xl:bottom-0 rounded-t-3xl -mb-12 mx-auto lg:-mb-12 xl:-mb-24 lg:mx-0 object-cover"
+              priority
             />
           </div>
           <div className="w-full lg:w-2/3">

@@ -1,4 +1,15 @@
-export const resultLabels: any = {
+// Define the keys for resultLabels
+type CalculatorKeys =
+  | "sip-calculator"
+  | "loan-calculator"
+  | "fd-calculator"
+  | "swp-calculator"
+  | "roi-calculator"
+  | "rd-calculator";
+
+export type CalculatorLabels = string[];
+
+export const resultLabels: Record<CalculatorKeys, CalculatorLabels> = {
   "sip-calculator": [
     "Total Investment",
     "Estimated Return",

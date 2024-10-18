@@ -1,15 +1,26 @@
-import React, { useState } from "react";
-import NepaliDate from "nepali-date-converter"; // Importing your installed NepaliDate class
+import React, { useState, useEffect } from "react";
+import NepaliDate from "nepali-date-converter"; // Importing NepaliDate class
+interface NepaliToEnglishDateConverterProps {
+  selectType: string;
+}
+import RadioButton from "../UI/RadioButton";
 
-const NepaliToEnglishDateConverter: React.FC = () => {
+const NepaliToEnglishDateConverter: React.FC<
+  NepaliToEnglishDateConverterProps
+> = (props) => {
   const [selectedDay, setSelectedDay] = useState<number | undefined>();
   const [selectedMonth, setSelectedMonth] = useState<number | undefined>();
   const [selectedYear, setSelectedYear] = useState<number | undefined>();
-  const [convertedDate, setConvertedDate] = useState<Date>(new Date());
+  const [convertedDate, setConvertedDate] = useState<string | Date | null>(
+    null
+  );
+  const [conversionType, setConversionType] = useState<string>(
+    props.selectType
+  );
 
-  // Arrays for Nepali days, months, and years
+  // Arrays for days, months, and years
   const days: number[] = Array.from({ length: 32 }, (_, i) => i + 1);
-  const nepaliMonths: { index: number; name: string }[] = [
+  const nepaliMonths = [
     { index: 0, name: "बैशाख" },
     { index: 1, name: "जेठ" },
     { index: 2, name: "असार" },
@@ -23,35 +34,100 @@ const NepaliToEnglishDateConverter: React.FC = () => {
     { index: 10, name: "फागुन" },
     { index: 11, name: "चैत" },
   ];
-  const years: number[] = Array.from({ length: 100 }, (_, i) => 2000 + i); // Example year range (2070 - 2119)
 
-  // Function to handle date conversion
-  const convertToEnglishDate = (): void => {
+  const englishMonths = [
+    { index: 0, name: "January" },
+    { index: 1, name: "February" },
+    { index: 2, name: "March" },
+    { index: 3, name: "April" },
+    { index: 4, name: "May" },
+    { index: 5, name: "June" },
+    { index: 6, name: "July" },
+    { index: 7, name: "August" },
+    { index: 8, name: "September" },
+    { index: 9, name: "October" },
+    { index: 10, name: "November" },
+    { index: 11, name: "December" },
+  ];
+  const years: number[] = Array.from({ length: 100 }, (_, i) => 2000 + i);
+  const englishYears: number[] = Array.from(
+    { length: 100 },
+    (_, i) => 1960 + i
+  );
+
+  // Handle radio button changes
+  const radioButtonActionHandler = (type: string) => {
+    setConversionType(type);
+  };
+
+  useEffect(() => {
+    if (conversionType === "ad") {
+      const currentNepaliDate = new NepaliDate();
+      setSelectedDay(currentNepaliDate.getDate());
+      setSelectedMonth(currentNepaliDate.getMonth());
+      setSelectedYear(currentNepaliDate.getYear());
+      const englishDate = currentNepaliDate.toJsDate();
+      setConvertedDate(englishDate);
+    } else {
+      const currentEnglishDate = new Date();
+      setSelectedDay(currentEnglishDate.getDate());
+      setSelectedMonth(currentEnglishDate.getMonth());
+      setSelectedYear(currentEnglishDate.getFullYear());
+      const currentNepaliDate = new NepaliDate(currentEnglishDate);
+      setConvertedDate(currentNepaliDate.format("DD MMMM, YYYY"));
+    }
+  }, [conversionType]);
+
+  const dateConvertHandler = (): void => {
     if (
       selectedDay !== undefined &&
       selectedMonth !== undefined &&
       selectedYear !== undefined
     ) {
-      const nepaliDate = new NepaliDate(
-        selectedYear,
-        selectedMonth,
-        selectedDay
-      );
-      console.log(nepaliDate.getBS());
-      const englishDate = nepaliDate.toJsDate();
-      setConvertedDate(englishDate);
+      if (conversionType === "ad") {
+        // Nepali to English (AD)
+        const nepaliDate = new NepaliDate(
+          selectedYear,
+          selectedMonth,
+          selectedDay
+        );
+        const englishDate = nepaliDate.toJsDate();
+        setConvertedDate(englishDate);
+      } else {
+        // English to Nepali (BS)
+        const englishDate = new Date(selectedYear, selectedMonth, selectedDay);
+        const nepaliDate = new NepaliDate(englishDate);
+        setConvertedDate(nepaliDate.format("DD MMMM, YYYY")); // Formatting for Nepali date
+      }
     } else {
       alert("Please select all fields.");
     }
   };
 
+  // Format the selected date as a readable string
+  const formatSelectedDate = (): string | null => {
+    if (
+      selectedDay !== undefined &&
+      selectedMonth !== undefined &&
+      selectedYear !== undefined
+    ) {
+      const monthNames = conversionType === "ad" ? nepaliMonths : englishMonths;
+      return `${selectedDay} ${monthNames[selectedMonth].name}, ${selectedYear}`;
+    }
+    return null;
+  };
+
   return (
-    <div className="p-4 mx-auto mt-8 mb-64">
-      <h2 className="text-primary text-3xl uppercase font-bold mb-24 text-center">
-        Nepali to English Date Converter
+    <div className="p-4 mx-auto mt-8 mb-64 max-w-lg sm:max-w-2xl">
+      <h2 className="text-primary text-3xl sm:text-4xl uppercase font-bold mb-8 text-center">
+        Date Converter
       </h2>
-      <div className="flex flex-row space-x-8">
-        {/* Day Selector */}
+      <RadioButton
+        selectedType={conversionType}
+        onSubmit={radioButtonActionHandler}
+      />
+
+      <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
         <select
           className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-darkText"
           value={selectedDay}
@@ -65,88 +141,59 @@ const NepaliToEnglishDateConverter: React.FC = () => {
           ))}
         </select>
 
-        {/* Nepali Month Selector */}
         <select
           className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-darkText"
           value={selectedMonth}
           onChange={(e) => setSelectedMonth(Number(e.target.value))}
         >
           <option value="">Select Month</option>
-          {nepaliMonths.map((month) => (
-            <option key={month.index} value={month.index}>
-              {month.name}
-            </option>
-          ))}
+          {(conversionType === "ad" ? nepaliMonths : englishMonths).map(
+            (month) => (
+              <option key={month.index} value={month.index}>
+                {month.name}
+              </option>
+            )
+          )}
         </select>
 
-        {/* Year Selector */}
         <select
           className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-darkText"
           value={selectedYear}
           onChange={(e) => setSelectedYear(Number(e.target.value))}
         >
           <option value="">Select Year</option>
-          {years.map((year) => (
+          {(conversionType === "ad" ? years : englishYears).map((year) => (
             <option key={year} value={year}>
               {year}
             </option>
           ))}
         </select>
+      </div>
 
+      <div className="text-center mt-6">
         <button
-          onClick={convertToEnglishDate}
-          className="relative inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-primary transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-200 group"
+          className="bg-primary text-white py-2 px-8 rounded-md hover:bg-opacity-90 transition-colors"
+          onClick={dateConvertHandler}
         >
-          <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-primary group-hover:h-full"></span>
-          <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
-            <svg
-              className="w-5 h-5 text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              ></path>
-            </svg>
-          </span>
-          <span className="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
-            <svg
-              className="w-5 h-5 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              ></path>
-            </svg>
-          </span>
-          <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">
-            Convert
-          </span>
+          Convert
         </button>
       </div>
 
       <hr className="my-4 border-t-2 border-primary" />
 
-      {/* Display converted date */}
-      <h4 className="text-primary opacity-80 text-center font-bold text-5xl">
-        {convertedDate
-          ? convertedDate.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })
-          : ""}
+      <p className="text-primary opacity text-center text-2xl mb-2">
+        {formatSelectedDate() ? `${formatSelectedDate()}` : ""}
+      </p>
+
+      <h4 className="text-primary opacity-70 text-center font-bold text-3xl sm:text-5xl">
+        {convertedDate &&
+          (typeof convertedDate === "string"
+            ? convertedDate
+            : convertedDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }))}
       </h4>
     </div>
   );

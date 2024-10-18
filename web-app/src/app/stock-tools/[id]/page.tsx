@@ -3,17 +3,29 @@
 import DividendForm from "@/components/forms/DividendForm";
 import ShareBuyForm from "@/components/forms/ShareBuyForm";
 import ShareSellForm from "@/components/forms/ShareSellForm";
+import {
+  StockResultData,
+  StockCalculatorKeys,
+} from "@/interfaces/IStockResult"; // Make sure to import your keys
 import { stockresultLabels } from "@/utils/stockResultLabel";
-const StockToolsCalculator = ({ params }: { params: { id: string } }) => {
+
+const StockToolsCalculator = ({
+  params,
+}: {
+  params: { id: StockCalculatorKeys };
+}) => {
+  // Type 'id' for strictness
   const { id } = params;
   const title = id.replace(/-/gi, " ");
-  let forms: any = {
+
+  const forms: { [key in StockCalculatorKeys]: React.FC } = {
+    // Type forms correctly
     "share-buy-calculator": ShareBuyForm,
     "share-sell-calculator": ShareSellForm,
     "dividend-calculator": DividendForm,
   };
-  // output
-  const stockresultData: any = {
+
+  const stockresultData: StockResultData = {
     "share-sell-calculator": {
       investor_type: "",
       total_amount: 0,
@@ -44,6 +56,7 @@ const StockToolsCalculator = ({ params }: { params: { id: string } }) => {
   const FormComponent = forms[id];
   const results = stockresultData[id];
   const labels = stockresultLabels[id];
+
   return (
     <>
       <h4 className="bg-gradient-to-r from-primary to-primary/80 my-5 text-2xl font-bold text-white rounded w-full h-auto uppercase text-left py-5 pl-5">
@@ -55,16 +68,16 @@ const StockToolsCalculator = ({ params }: { params: { id: string } }) => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {<FormComponent />}
-          <div className="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-4 rounded-lg">
+          <div className="bg-gradient-to-r from-primary to-primary/80 text-white p-4 rounded-lg">
             {Object.keys(results).map((key, index) => (
               <div key={index}>
                 <p className="md:text-xl track">{labels[index]}</p>
                 <p className="lg:text-3xl md:text-2xl sm:text-xl font-bold mb-2">
-                  {typeof results[key] !== "string" &&
-                  results[key] !== undefined &&
+                  {typeof results[key as keyof typeof results] !== "string" &&
+                  results[key as keyof typeof results] !== undefined &&
                   labels[index].toLowerCase() !== "receiveable bonus"
-                    ? `Rs. ${results[key]}`
-                    : `${results[key]}`}
+                    ? `Rs. ${results[key as keyof typeof results]}`
+                    : `${results[key as keyof typeof results]}`}
                 </p>
 
                 {index < Object.keys(results).length - 1 && (
@@ -78,4 +91,5 @@ const StockToolsCalculator = ({ params }: { params: { id: string } }) => {
     </>
   );
 };
+
 export default StockToolsCalculator;

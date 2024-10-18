@@ -57,10 +57,10 @@ export const HeroUI = () => {
   return (
     <>
       <div className="flex items-center justify-center w-full h-auto flex-col p-6 mt-10 ">
-        <h1 className="text-4xl lg:text-6xl font-bold text-black text-center mb-4">
+        <h1 className="text-4xl lg:text-6xl font-bold text-primary text-center mb-4">
           Efficiency at Your Fingertips
         </h1>
-        <p className="text-base lg:text-xl text-darkText text-center mb-6 px-4 lg:px-0 max-w-2xl mt-10">
+        <p className="text-base lg:text-xl text-darkText opacity-80 text-center mb-6 px-4 lg:px-0 max-w-2xl mt-10">
           Your all-in-one solution for financial tools, stock calculators, unit
           converters, and more, designed to simplify your daily calculations
           with ease and accuracy.

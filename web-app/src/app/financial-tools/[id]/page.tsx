@@ -5,11 +5,12 @@ import RDForm from "@/components/forms/RDForm";
 import ROIForm from "@/components/forms/ROIForm";
 import SIPForm from "@/components/forms/SIPForm";
 import SWPForm from "@/components/forms/SWPForm";
+import { CalculatorResultData } from "@/interfaces/IFinancialResult";
 import { resultLabels } from "@/utils/financialResultLabels";
 const FinancialToolsCalculator = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const title = id.replace(/-/gi, " ");
-  const formComponents: any = {
+  const formComponents: { [key: string]: React.FC } = {
     "sip-calculator": SIPForm,
     "fd-calculator": FDForm,
     "swp-calculator": SWPForm,
@@ -17,8 +18,8 @@ const FinancialToolsCalculator = ({ params }: { params: { id: string } }) => {
     "roi-calculator": ROIForm,
     "rd-calculator": RDForm,
   };
-  //store results
-  const resultData: any = {
+
+  const resultData: CalculatorResultData = {
     "sip-calculator": {
       total_investment: 0,
       estimated_return: 0,
@@ -29,10 +30,7 @@ const FinancialToolsCalculator = ({ params }: { params: { id: string } }) => {
       monthly_emi: 0,
       total_interest: 0,
     },
-    "fd-calculator": {
-      total_interest: 0,
-      total_return_amount: 0,
-    },
+    "fd-calculator": { total_interest: 0, total_return_amount: 0 },
     "roi-calculator": {
       total_gain_on_investment: 0,
       return_on_investment: 0,
@@ -50,9 +48,16 @@ const FinancialToolsCalculator = ({ params }: { params: { id: string } }) => {
       final_value: 0,
     },
   };
-  const labels = resultLabels[id];
-  const results = resultData[id];
+
+  const labels = resultLabels[id as keyof typeof resultLabels];
+  const results = resultData[id as keyof CalculatorResultData];
   const FormComponent = formComponents[id];
+
+  // Handle invalid ID scenario
+  if (!FormComponent) {
+    return <p>Invalid Calculator ID</p>;
+  }
+
   return (
     <>
       <h4 className="bg-gradient-to-r from-primary to-primary/80 my-5 text-2xl font-bold text-white rounded w-full h-auto uppercase text-left py-5 pl-5">
@@ -69,11 +74,11 @@ const FinancialToolsCalculator = ({ params }: { params: { id: string } }) => {
               <div key={index}>
                 <p className="md:text-xl track">{labels[index]}</p>
                 <p className="lg:text-3xl md:text-2xl sm:text-xl font-bold mb-2">
-                  {typeof results[key] !== "string" &&
-                  results[key] !== undefined &&
+                  {typeof results[key as keyof typeof results] !== "string" &&
+                  results[key as keyof typeof results] !== undefined &&
                   labels[index].toLowerCase() !== "receiveable bonus"
-                    ? `Rs. ${results[key]}`
-                    : `${results[key]}`}
+                    ? `Rs. ${results[key as keyof typeof results] as number}`
+                    : `${results[key as keyof typeof results]}`}
                 </p>
 
                 {index < Object.keys(results).length - 1 && (
@@ -87,4 +92,5 @@ const FinancialToolsCalculator = ({ params }: { params: { id: string } }) => {
     </>
   );
 };
+
 export default FinancialToolsCalculator;
